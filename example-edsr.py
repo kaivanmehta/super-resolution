@@ -13,7 +13,7 @@ from data import DIV2K
 from model.edsr import edsr
 from train import EdsrTrainer
 
-get_ipython().run_line_magic('matplotlib', 'inline')
+# get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # In[2]:
@@ -98,7 +98,7 @@ trainer.restore()
 psnrv = trainer.evaluate(valid_ds)
 print(f'PSNR = {psnrv.numpy():3f}')
 
-
+'''
 # In[ ]:
 
 
@@ -125,7 +125,7 @@ def resolve_and_plot(lr_image_path):
     lr = load_image(lr_image_path)
     sr = resolve_single(model, lr)
     plot_sample(lr, sr)
-
+'''
 
 # In[8]:
 
