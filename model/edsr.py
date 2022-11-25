@@ -3,6 +3,8 @@ from tensorflow.python.keras.models import Model
 
 from model.common import normalize, denormalize, pixel_shuffle
 
+import onnx
+import keras2onnx
 
 def edsr(scale, num_filters=64, num_res_blocks=8, res_block_scaling=None):
     x_in = Input(shape=(None, None, 3))
@@ -18,8 +20,11 @@ def edsr(scale, num_filters=64, num_res_blocks=8, res_block_scaling=None):
     x = Conv2D(3, 3, padding='same')(x)
 
     x = Lambda(denormalize)(x)
-    return Model(x_in, x, name="edsr")
-
+    model = Model(x_in, x, name="edsr")
+    
+    onnx_model = keras2onnx.convert_keras(model, model.name)
+    onnx.save_model(onnx_model, 'model.onnx')
+    return model
 
 def res_block(x_in, filters, scaling):
     x = Conv2D(filters, 3, padding='same', activation='relu')(x_in)
@@ -44,3 +49,6 @@ def upsample(x, scale, num_filters):
         x = upsample_1(x, 2, name='conv2d_2_scale_2')
 
     return x
+
+
+edsr(4)
