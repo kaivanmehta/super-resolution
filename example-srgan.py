@@ -13,7 +13,7 @@ from data import DIV2K
 from model.srgan import generator, discriminator
 from train import SrganTrainer, SrganGeneratorTrainer
 
-get_ipython().run_line_magic('matplotlib', 'inline')
+# get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # In[2]:
